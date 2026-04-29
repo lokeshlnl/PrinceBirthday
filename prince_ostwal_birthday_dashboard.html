@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prince Ostwal — The Real Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9933A;
+  --gold-light: #E8B86D;
+  --saffron: #E8740C;
+  --cream: #F5EDD8;
+  --deep: #1A0F05;
+  --maroon: #6B1A1A;
+  --ink: #2A1A0E;
+  --muted: #8B7355;
+  --card-bg: #22160A;
+  --border: rgba(201,147,58,0.25);
+  --white: #FAF6EE;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+  opacity: 0.6;
+}
+body:hover .cursor { opacity: 1; }
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+/* LOADING SCREEN */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: var(--deep);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loader.hide { opacity: 0; visibility: hidden; }
+.loader-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 7rem);
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.loader-sub {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+.loader-bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(201,147,58,0.2);
+  border-radius: 100px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 0.5s 0.5s forwards;
+}
+.loader-bar-fill {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  animation: loadFill 1.8s 0.6s ease forwards;
+}
+@keyframes loadFill { to { width: 100%; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(232,116,12,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(107,26,26,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201,147,58,0.04) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* Rajasthani geometric pattern */
+.hero-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C9933A' stroke-width='0.3' opacity='0.15'%3E%3Cpolygon points='30,5 55,20 55,40 30,55 5,40 5,20'/%3E%3Cpolygon points='30,12 48,22 48,38 30,48 12,38 12,22'/%3E%3Cline x1='30' y1='5' x2='30' y2='55'/%3E%3Cline x1='5' y1='20' x2='55' y2='40'/%3E%3Cline x1='5' y1='40' x2='55' y2='20'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.birthday-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(201,147,58,0.12);
+  border: 1px solid var(--border);
+  padding: 0.4rem 1.2rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 2rem;
+  animation: fadeUp 1s 2s both;
+}
+
+.hero-age {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(7rem, 25vw, 18rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,147,58,0.25);
+  line-height: 0.85;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  letter-spacing: -0.02em;
+  z-index: 0;
+  animation: fadeIn 1.5s 2.2s both;
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--white);
+  animation: fadeUp 1s 2.1s both;
+  position: relative;
+  z-index: 2;
+}
+.hero-name em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-tagline {
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: var(--muted);
+  max-width: 500px;
+  margin: 1.5rem auto 0;
+  line-height: 1.8;
+  font-weight: 300;
+  animation: fadeUp 1s 2.4s both;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  z-index: 2;
+  animation: fadeIn 1s 3s both;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(201,147,58,0.3);
+  border: 1px solid rgba(201,147,58,0.4);
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+.nav-dot.active, .nav-dot:hover {
+  background: var(--gold);
+  transform: scale(1.5);
+}
+.nav-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.nav-dot:hover::after { opacity: 1; }
+
+/* SECTIONS */
+.section {
+  padding: 6rem 2rem;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--saffron);
+}
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-heading em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* DIVIDER */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 0;
+}
+
+/* ===== ORIGIN STORY ===== */
+.origin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+.origin-text p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(245,237,216,0.75);
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.origin-text p strong { color: var(--gold-light); font-weight: 500; }
+
+.origin-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.origin-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--saffron), var(--gold));
+}
+
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.stat-item {}
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+}
+.location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(232,116,12,0.1);
+  border: 1px solid rgba(232,116,12,0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--saffron);
+  margin-top: 1.5rem;
+}
+
+/* ===== FINANCE MIND ===== */
+.finance-section {
+  background: linear-gradient(135deg, #1A0F05 0%, #2A1508 50%, #1A0F05 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6rem 2rem;
+}
+.finance-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.ticker-bar {
+  background: rgba(201,147,58,0.08);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.ticker-track {
+  display: flex;
+  gap: 3rem;
+  animation: ticker 20s linear infinite;
+  white-space: nowrap;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.ticker-symbol { color: var(--gold-light); letter-spacing: 0.1em; font-size: 0.75rem; }
+.ticker-up { color: #4CAF50; }
+.ticker-down { color: #EF5350; }
+
+.finance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.finance-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: transform 0.3s, border-color 0.3s, background 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.finance-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,147,58,0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.finance-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.finance-card:hover::after { opacity: 1; }
+.fc-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.fc-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.fc-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ===== FOOD PERSONALITY ===== */
+.food-section {
+  padding: 6rem 2rem;
+}
+.food-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.food-hero-card {
+  background: linear-gradient(135deg, rgba(232,116,12,0.12), rgba(201,147,58,0.08));
+  border: 1px solid rgba(232,116,12,0.3);
+  border-radius: 24px;
+  padding: 3rem;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.food-hero-card::before {
+  content: '🍛';
+  position: absolute;
+  right: -1rem;
+  bottom: -2rem;
+  font-size: 10rem;
+  opacity: 0.07;
+  pointer-events: none;
+}
+.food-emoji-big {
+  font-size: 5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 20px rgba(232,116,12,0.4));
+}
+.food-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.food-info p {
+  font-size: 1rem;
+  color: rgba(245,237,216,0.65);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.food-info p strong { color: var(--gold-light); }
+
+.food-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+.food-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(201,147,58,0.1);
+  border: 1px solid rgba(201,147,58,0.25);
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--gold-light);
+}
+
+.food-rule {
+  background: rgba(107,26,26,0.3);
+  border: 1px solid rgba(107,26,26,0.6);
+  border-left: 3px solid var(--maroon);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(245,237,216,0.6);
+}
+.food-rule strong { color: #EF9393; }
+
+/* ===== FRIENDSHIP OS ===== */
+.friends-section {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6rem 2rem;
+}
+.friends-inner { max-width: 1100px; margin: 0 auto; }
+
+.friend-os {
+  margin-top: 3rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.friend-os-header {
+  background: rgba(201,147,58,0.06);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.os-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.friend-criteria {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.criteria-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s;
+  cursor: default;
+}
+.criteria-row:hover { background: rgba(201,147,58,0.06); }
+.criteria-icon { font-size: 1.5rem; flex-shrink: 0; width: 2.5rem; text-align: center; }
+.criteria-text { flex: 1; }
+.criteria-title { font-size: 0.9rem; color: var(--white); font-weight: 500; margin-bottom: 0.2rem; }
+.criteria-sub { font-size: 0.8rem; color: var(--muted); }
+.criteria-badge {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.badge-green { background: rgba(76,175,80,0.15); color: #81C784; border: 1px solid rgba(76,175,80,0.3); }
+.badge-gold { background: rgba(201,147,58,0.15); color: var(--gold-light); border: 1px solid var(--border); }
+.badge-red { background: rgba(239,83,80,0.15); color: #EF9393; border: 1px solid rgba(239,83,80,0.3); }
+
+.friend-quote {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: rgba(245,237,216,0.5);
+  text-align: center;
+}
+.friend-quote span { color: var(--gold-light); }
+
+/* ===== LOVE SECTION ===== */
+.love-section {
+  padding: 6rem 2rem;
+}
+.love-inner { max-width: 1100px; margin: 0 auto; }
+
+.love-card {
+  margin-top: 3rem;
+  background: linear-gradient(135deg, rgba(107,26,26,0.2), rgba(34,22,10,0.8));
+  border: 1px solid rgba(107,26,26,0.5);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.love-card::before {
+  content: '♥';
+  position: absolute;
+  font-size: 15rem;
+  color: rgba(107,26,26,0.08);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  font-family: serif;
+}
+.love-big { font-size: 3rem; margin-bottom: 1rem; }
+.love-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.love-body {
+  font-size: 1rem;
+  color: rgba(245,237,216,0.6);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-weight: 300;
+}
+.love-body strong { color: #EF9393; }
+
+.love-meter-wrap {
+  margin: 2rem auto 0;
+  max-width: 280px;
+}
+.love-meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+.love-meter-track {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.love-meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 100px;
+  background: linear-gradient(to right, var(--maroon), #EF5350);
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== CHARACTER TRAITS ===== */
+.traits-section {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6rem 2rem;
+}
+.traits-inner { max-width: 1100px; margin: 0 auto; }
+
+.traits-bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.trait-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.trait-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+
+.trait-card.big { grid-column: span 2; }
+.trait-card.tall { grid-row: span 2; }
+
+.trait-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.trait-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+.trait-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.trait-level {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  background: rgba(201,147,58,0.1);
+  color: var(--gold-light);
+  border: 1px solid var(--border);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Interactive trait flip */
+.flip-card { perspective: 1000px; }
+.flip-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  min-height: 150px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute;
+  width: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.flip-back-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(245,237,216,0.7);
+}
+.flip-back-item::before { content: '→'; color: var(--gold); font-size: 0.7rem; }
+
+/* ===== THE GLOW UP ===== */
+.glowup-section {
+  padding: 6rem 2rem;
+}
+.glowup-inner { max-width: 1100px; margin: 0 auto; }
+
+.timeline {
+  margin-top: 3rem;
+  position: relative;
+  padding-left: 2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold), var(--gold), transparent);
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 3rem 2.5rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+.timeline-item.in-view { opacity: 1; transform: none; }
+.timeline-dot {
+  position: absolute;
+  left: -2.25rem;
+  top: 0.25rem;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--deep);
+  box-shadow: 0 0 0 3px rgba(201,147,58,0.3);
+}
+.timeline-year {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--saffron);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.timeline-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+.timeline-body {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ===== EXAM SECTION ===== */
+.exam-section {
+  background: linear-gradient(135deg, #0F1A0A, #1A2610);
+  border-top: 1px solid rgba(76,175,80,0.2);
+  border-bottom: 1px solid rgba(76,175,80,0.2);
+  padding: 6rem 2rem;
+}
+.exam-inner { max-width: 1100px; margin: 0 auto; }
+
+.exam-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(76,175,80,0.25);
+  border-radius: 24px;
+  padding: 3rem;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.exam-icon { font-size: 5rem; flex-shrink: 0; }
+.exam-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.exam-info p {
+  font-size: 1rem;
+  color: rgba(245,237,216,0.6);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.exam-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(76,175,80,0.15);
+  border: 1px solid rgba(76,175,80,0.4);
+  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  color: #81C784;
+  font-size: 0.85rem;
+  font-weight: 500;
+  animation: glowPulse 2s infinite;
+}
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+  50% { box-shadow: 0 0 15px rgba(76,175,80,0.25); }
+}
+
+.motivation-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.mot-card {
+  background: rgba(76,175,80,0.05);
+  border: 1px solid rgba(76,175,80,0.15);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.mot-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: #81C784;
+  line-height: 1;
+}
+.mot-label { font-size: 0.75rem; color: rgba(245,237,216,0.4); margin-top: 0.25rem; }
+
+/* ===== CONTENT DIET ===== */
+.content-section {
+  padding: 6rem 2rem;
+}
+.content-inner { max-width: 1100px; margin: 0 auto; }
+
+.content-wheel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.cw-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.cw-item:hover { background: rgba(201,147,58,0.06); border-color: var(--gold); transform: scale(1.01); }
+.cw-icon { font-size: 2.5rem; flex-shrink: 0; }
+.cw-text { flex: 1; }
+.cw-title { font-weight: 500; color: var(--white); font-size: 0.95rem; margin-bottom: 0.2rem; }
+.cw-sub { font-size: 0.8rem; color: var(--muted); }
+.cw-bar {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+.cw-bar-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.cw-bar-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 100px;
+  width: 0%;
+  transition: width 1.5s ease;
+}
+.cw-pct { font-size: 0.75rem; color: var(--gold-light); font-weight: 500; }
+
+/* ===== BIRTHDAY MESSAGE ===== */
+.bday-section {
+  padding: 8rem 2rem;
+  text-align: center;
+  position: relative;
+}
+.bday-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+.bday-confetti-area {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bday-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.bday-title em { color: var(--gold); font-style: italic; }
+
+.bday-message {
+  font-size: 1.05rem;
+  color: rgba(245,237,216,0.65);
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.bday-message strong { color: var(--gold-light); }
+
+.bday-btn {
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: var(--deep);
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.bday-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 40px rgba(232,116,12,0.35);
+}
+.bday-btn:active { transform: scale(0.98); }
+
+.confetti-piece {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+  pointer-events: none;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+footer strong { color: var(--gold-light); }
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in-view { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .origin-grid { grid-template-columns: 1fr; }
+  .finance-grid { grid-template-columns: 1fr; }
+  .food-hero-card { flex-direction: column; }
+  .exam-card { flex-direction: column; }
+  .content-wheel { grid-template-columns: 1fr; }
+  .traits-bento { grid-template-columns: repeat(2, 1fr); }
+  .trait-card.big { grid-column: span 2; }
+  .motivation-cards { grid-template-columns: 1fr; }
+  .nav-dots { display: none; }
+}
+
+/* Smooth entrance on page load */
+.main-content { opacity: 0; animation: fadeIn 0.5s 2.5s both; }
+
+/* Hover glow on gold text */
+.gold-text { color: var(--gold); }
+
+/* MOOD WHEEL INTERACTIVE */
+.mood-section { padding: 4rem 2rem; }
+.mood-inner { max-width: 1100px; margin: 0 auto; }
+.mood-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+.mood-chip {
+  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 1px solid;
+  transition: all 0.25s;
+  user-select: none;
+}
+.mood-chip:hover, .mood-chip.active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px currentColor;
+  opacity: 0.9;
+}
+.mood-response {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--gold-light);
+  min-height: 2rem;
+  font-style: italic;
+  transition: opacity 0.3s;
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-name">PRINCE</div>
+  <div class="loader-sub">Loading the real one...</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots">
+  <div class="nav-dot active" data-label="Home" onclick="scrollToId('hero')"></div>
+  <div class="nav-dot" data-label="Origin" onclick="scrollToId('origin')"></div>
+  <div class="nav-dot" data-label="Finance" onclick="scrollToId('finance')"></div>
+  <div class="nav-dot" data-label="Food" onclick="scrollToId('food')"></div>
+  <div class="nav-dot" data-label="Friends" onclick="scrollToId('friends')"></div>
+  <div class="nav-dot" data-label="Glow Up" onclick="scrollToId('glowup')"></div>
+  <div class="nav-dot" data-label="Exam" onclick="scrollToId('exam')"></div>
+  <div class="nav-dot" data-label="Birthday" onclick="scrollToId('birthday')"></div>
+</nav>
+
+<div class="main-content">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-age">20</div>
+  <div class="hero-content">
+    <div class="birthday-badge">🎂 21 April 2005 — Happy 20th Birthday</div>
+    <h1 class="hero-name">Prince<br><em>Ostwal</em></h1>
+    <p class="hero-tagline">
+      A boy from Rajasthan, engineering in Pune, recharging in Mumbai —<br>
+      full of ambition, dal baati, and a carefully curated friend list.
+    </p>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ORIGIN STORY -->
+<section id="origin">
+  <div class="section">
+    <div class="section-eyebrow">Chapter 01</div>
+    <h2 class="section-heading">The <em>Origin</em> Story</h2>
+    <div class="origin-grid">
+      <div class="origin-text reveal">
+        <p>Born in the land of forts and festivals — <strong>Rajasthan</strong>, where the sand is golden and the culture is richer than any portfolio he'll ever manage. Home is always home.</p>
+        <p>Day-to-day life? <strong>Pune</strong> — grinding through engineering at <strong>I2IT</strong>. Because apparently becoming a finance powerhouse requires an engineering degree first. Respect the hustle.</p>
+        <p>Short holidays (3+ days)? Off to <strong>Mumbai</strong>, his uncle's place — recharging in India's financial capital. Longer breaks? All the way back to <strong>Rajasthan</strong>, family first. The man has a whole migration pattern.</p>
+        <p>He carries the <strong>groundedness of Rajasthan</strong>, the <strong>engineering discipline of Pune</strong>, and the <strong>financial ambition of Mumbai</strong> — all in the same person. That's a rare triple threat.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="origin-card">
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="stat-num">20</div>
+              <div class="stat-label">Years of Prince-ing</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">3</div>
+              <div class="stat-label">Cities, One Journey</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">∞</div>
+              <div class="stat-label">Finance Opinions</div>
+            </div>
+          </div>
+          <div class="location-badge">📍 Rajasthan → Pune (I2IT) → Mumbai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FINANCE MIND -->
+<section class="finance-section" id="finance">
+  <div class="finance-inner">
+    <div class="section-eyebrow reveal">Chapter 02</div>
+    <h2 class="section-heading reveal">The <em>Finance Brain</em></h2>
+    <p class="reveal" style="color:var(--muted); max-width:500px; line-height:1.8; margin-bottom:0;">Doesn't just talk money. Lives, breathes, and dreams in balance sheets.</p>
+
+    <!-- Ticker -->
+    <div class="ticker-bar reveal reveal-delay-1">
+      <div class="ticker-track" id="ticker">
+        <span class="ticker-item"><span class="ticker-symbol">CFA</span> <span class="ticker-up">▲ IN PROGRESS</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">CA</span> <span class="ticker-up">▲ ON THE ROADMAP</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">SHARK TANK</span> <span class="ticker-up">▲ DAILY VIEWING</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">PODCASTS</span> <span class="ticker-up">▲ PORTFOLIO: FULL</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">ENTREPRENEURSHIP</span> <span class="ticker-up">▲ INTEREST RATE: MAX</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">CASE STUDIES</span> <span class="ticker-up">▲ BULLISH</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">DEALS</span> <span class="ticker-up">▲ WATCHING</span></span>
+        <!-- duplicate for seamless scroll -->
+        <span class="ticker-item"><span class="ticker-symbol">CFA</span> <span class="ticker-up">▲ IN PROGRESS</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">CA</span> <span class="ticker-up">▲ ON THE ROADMAP</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">SHARK TANK</span> <span class="ticker-up">▲ DAILY VIEWING</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">PODCASTS</span> <span class="ticker-up">▲ PORTFOLIO: FULL</span></span>
+        <span class="ticker-item"><span class="ticker-symbol">ENTREPRENEURSHIP</span> <span class="ticker-up">▲ INTEREST RATE: MAX</span></span>
+      </div>
+    </div>
+
+    <div class="finance-grid">
+      <div class="finance-card reveal">
+        <div class="fc-icon">📊</div>
+        <div class="fc-title">The Analyst Mindset</div>
+        <div class="fc-desc">Can break down a business model mid-conversation, probably while eating mithais. Numbers are not just numbers — they're stories.</div>
+      </div>
+      <div class="finance-card reveal reveal-delay-1">
+        <div class="fc-icon">🦈</div>
+        <div class="fc-title">Shark Tank Mode</div>
+        <div class="fc-desc">Watches every episode like a case study. Already forming opinions on valuations before the pitch is done. Honestly, scary accurate.</div>
+      </div>
+      <div class="finance-card reveal reveal-delay-2">
+        <div class="fc-icon">🏢</div>
+        <div class="fc-title">Entrepreneurship DNA</div>
+        <div class="fc-desc">It's not just interest — it's identity. Business, deals, ventures. He's not building castles in the air; he's drawing blueprints.</div>
+      </div>
+      <div class="finance-card reveal">
+        <div class="fc-icon">🎙️</div>
+        <div class="fc-title">Podcast Addict</div>
+        <div class="fc-desc">Content diet = 90% business podcasts. If there's a finance founder talking, he's already subscribed and bookmarked the episode.</div>
+      </div>
+      <div class="finance-card reveal reveal-delay-1">
+        <div class="fc-icon">📜</div>
+        <div class="fc-title">CFA + CA Vision</div>
+        <div class="fc-desc">Certifications aren't flex, they're weapons. He knows the difference, and he's quietly arming himself for something big.</div>
+      </div>
+      <div class="finance-card reveal reveal-delay-2">
+        <div class="fc-icon">🔭</div>
+        <div class="fc-title">Wide-Angle Thinker</div>
+        <div class="fc-desc">Thinking isn't restricted to any limit. He sees deals in patterns, opportunities in problems, and returns in everything he touches.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOD -->
+<section class="food-section" id="food">
+  <div class="food-inner">
+    <div class="section-eyebrow reveal">Chapter 03</div>
+    <h2 class="section-heading reveal">The <em>Food Manifesto</em></h2>
+    <p class="reveal" style="color:var(--muted); line-height:1.8;">Not just dietary preferences. This is a whole philosophy.</p>
+
+    <div class="food-hero-card reveal">
+      <div class="food-emoji-big">🫙</div>
+      <div class="food-info">
+        <h3>Daal Baati Churma — The GOAT</h3>
+        <p>When you ask him his love language, it's this. Crispy baatis, ghee-soaked dal, and churma sweet enough to match his ambitions. <strong>No negotiations. No compromises. Just add more ghee.</strong></p>
+        <div class="food-tags">
+          <span class="food-tag">🫙 Daal Baati (Chur ke)</span>
+          <span class="food-tag">🍬 Sweets = Serotonin</span>
+          <span class="food-tag">🌿 Pure Veg Only</span>
+          <span class="food-tag">🙏 Jain Standards</span>
+        </div>
+        <div class="food-rule">
+          <strong>Non-negotiable rule:</strong> Pure vegetarian restaurants only. Not picky — principled. There's a massive difference and he lives by it.
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-top:1.5rem;">
+      <div class="finance-card reveal" style="text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:0.75rem;">🍯</div>
+        <div class="fc-title">Sweet Tooth Index</div>
+        <div style="margin-top:0.75rem;">
+          <div style="height:4px; background:rgba(255,255,255,0.08); border-radius:100px; overflow:hidden;">
+            <div class="cw-bar-fill" style="background: linear-gradient(to right, #E8740C, var(--gold)); width:0%;" data-w="95"></div>
+          </div>
+          <div style="font-size:0.7rem; color:var(--muted); margin-top:0.4rem;">95% — Off the charts</div>
+        </div>
+      </div>
+      <div class="finance-card reveal reveal-delay-1" style="text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:0.75rem;">🥬</div>
+        <div class="fc-title">Veg Commitment</div>
+        <div style="margin-top:0.75rem;">
+          <div style="height:4px; background:rgba(255,255,255,0.08); border-radius:100px; overflow:hidden;">
+            <div class="cw-bar-fill" style="background: linear-gradient(to right, #4CAF50, #81C784); width:0%;" data-w="100"></div>
+          </div>
+          <div style="font-size:0.7rem; color:var(--muted); margin-top:0.4rem;">100% — Uncompromising</div>
+        </div>
+      </div>
+      <div class="finance-card reveal reveal-delay-2" style="text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:0.75rem;">🏡</div>
+        <div class="fc-title">Rajasthani Food Pride</div>
+        <div style="margin-top:0.75rem;">
+          <div style="height:4px; background:rgba(255,255,255,0.08); border-radius:100px; overflow:hidden;">
+            <div class="cw-bar-fill" style="background: linear-gradient(to right, var(--saffron), var(--gold)); width:0%;" data-w="98"></div>
+          </div>
+          <div style="font-size:0.7rem; color:var(--muted); margin-top:0.4rem;">98% — Will argue with you</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FRIENDS -->
+<section class="friends-section" id="friends">
+  <div class="friends-inner">
+    <div class="section-eyebrow reveal">Chapter 04</div>
+    <h2 class="section-heading reveal">The <em>Friendship OS</em></h2>
+    <p class="reveal" style="color:var(--muted); max-width:500px; line-height:1.8;">Not everyone gets the passcode. But if you do, you're in for life.</p>
+
+    <div class="friend-os reveal">
+      <div class="friend-os-header">
+        <div class="os-dot" style="background:#FF5F57;"></div>
+        <div class="os-dot" style="background:#FEBC2E;"></div>
+        <div class="os-dot" style="background:#28C840;"></div>
+        <span style="margin-left:0.5rem;">friendship_criteria.exe — Prince OS v2.0</span>
+      </div>
+      <div class="friend-criteria">
+        <div class="criteria-row">
+          <div class="criteria-icon">🧠</div>
+          <div class="criteria-text">
+            <div class="criteria-title">Ideological Alignment</div>
+            <div class="criteria-sub">Your thinking has to match his frequency. No shallow conversations allowed.</div>
+          </div>
+          <div class="criteria-badge badge-green">REQUIRED</div>
+        </div>
+        <div class="criteria-row">
+          <div class="criteria-icon">🌐</div>
+          <div class="criteria-text">
+            <div class="criteria-title">Unlimited Thinking</div>
+            <div class="criteria-sub">Narrow minds need not apply. He thinks beyond borders, you better too.</div>
+          </div>
+          <div class="criteria-badge badge-green">REQUIRED</div>
+        </div>
+        <div class="criteria-row">
+          <div class="criteria-icon">🔁</div>
+          <div class="criteria-text">
+            <div class="criteria-title">Second Thought Protocol</div>
+            <div class="criteria-sub">He double-checks himself before accepting you. That's not cold — that's careful.</div>
+          </div>
+          <div class="criteria-badge badge-gold">HIS PROCESS</div>
+        </div>
+        <div class="criteria-row">
+          <div class="criteria-icon">🎯</div>
+          <div class="criteria-text">
+            <div class="criteria-title">Selective by Design</div>
+            <div class="criteria-sub">Small circle, high quality. He doesn't collect people; he invests in them.</div>
+          </div>
+          <div class="criteria-badge badge-gold">INTENTIONAL</div>
+        </div>
+        <div class="criteria-row">
+          <div class="criteria-icon">🚫</div>
+          <div class="criteria-text">
+            <div class="criteria-title">Energy Vampires</div>
+            <div class="criteria-sub">Negativity, small-mindedness, and empty flattery — instant disqualification.</div>
+          </div>
+          <div class="criteria-badge badge-red">REJECTED</div>
+        </div>
+      </div>
+      <div class="friend-quote">
+        "Of course he got a friend like me." — <span>His Best Friend, who wrote this</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LOVE SECTION -->
+<section class="love-section" id="love">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="section-eyebrow reveal">Chapter 05</div>
+    <h2 class="section-heading reveal">The <em>Love Side</em></h2>
+
+    <div class="love-card reveal">
+      <div class="love-big">💛</div>
+      <div class="love-title">That Complicated Chapter</div>
+      <div class="love-body">
+        Some chapters don't need a narrator. This one belongs entirely to <strong>Prince</strong>.
+        He understands this side better than anyone — the feelings, the timing, the confusion and clarity of it all.
+        Whatever it looks like, it's his story to write.
+        <br><br>
+        All we know? <strong>He'll figure it out.</strong> He always does.
+      </div>
+
+      <div class="love-meter-wrap">
+        <div class="love-meter-label">
+          <span>Confused</span>
+          <span>Figures it out</span>
+        </div>
+        <div class="love-meter-track">
+          <div class="love-meter-fill" id="loveMeter"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CHARACTER TRAITS -->
+<section class="traits-section" id="traits">
+  <div class="traits-inner">
+    <div class="section-eyebrow reveal">Chapter 06</div>
+    <h2 class="section-heading reveal">The <em>Character Sheet</em></h2>
+    <p class="reveal" style="color:var(--muted); line-height:1.8; margin-bottom:0;">Hover on each card to flip it. That's how he reveals himself — slowly.</p>
+
+    <div class="traits-bento">
+      <!-- Focused -->
+      <div class="trait-card flip-card reveal">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="trait-level">MAX LEVEL</div>
+            <div class="trait-icon">🎯</div>
+            <div class="trait-name">Laser Focus</div>
+            <div class="trait-desc">When he locks in on a goal, it's not motivation — it's obsession. The productive kind.</div>
+          </div>
+          <div class="flip-back" style="padding: 0.5rem 0;">
+            <div style="font-size:0.75rem; color:var(--gold); margin-bottom:0.5rem; letter-spacing:0.1em;">IN PRACTICE:</div>
+            <div class="flip-back-item">Studies when others scroll</div>
+            <div class="flip-back-item">Doesn't waste days</div>
+            <div class="flip-back-item">Goal > temporary fun</div>
+            <div class="flip-back-item">Eyes on the prize always</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open to ideas -->
+      <div class="trait-card flip-card reveal reveal-delay-1">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="trait-level">OPEN SOURCE</div>
+            <div class="trait-icon">🌱</div>
+            <div class="trait-name">Always Exploring</div>
+            <div class="trait-desc">New ideas, new tasks, new activities. He says yes first, evaluates second.</div>
+          </div>
+          <div class="flip-back" style="padding:0.5rem 0;">
+            <div style="font-size:0.75rem; color:var(--gold); margin-bottom:0.5rem; letter-spacing:0.1em;">APPLIES TO:</div>
+            <div class="flip-back-item">New hobbies enthusiastically</div>
+            <div class="flip-back-item">Different perspectives</div>
+            <div class="flip-back-item">Unexpected opportunities</div>
+            <div class="flip-back-item">Things outside comfort zone</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jain / Values - big card -->
+      <div class="trait-card big flip-card reveal reveal-delay-2">
+        <div class="flip-inner" style="min-height:160px;">
+          <div class="flip-front">
+            <div class="trait-level">CORE VALUE</div>
+            <div class="trait-icon">🙏</div>
+            <div class="trait-name">Rooted in Values</div>
+            <div class="trait-desc">Jain by faith, Rajasthani by culture, and grounded by both. His values aren't decoration — they're architecture. Everything is built on top of them.</div>
+          </div>
+          <div class="flip-back" style="padding:0.5rem 0; display:flex; flex-direction:row; flex-wrap:wrap; gap:0.5rem; align-content:flex-start;">
+            <div class="flip-back-item" style="width:48%;">Non-violence in diet</div>
+            <div class="flip-back-item" style="width:48%;">Family always first</div>
+            <div class="flip-back-item" style="width:48%;">Respect for tradition</div>
+            <div class="flip-back-item" style="width:48%;">Integrity in dealings</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDGAF Evolution -->
+      <div class="trait-card flip-card reveal">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="trait-level">EVOLVED</div>
+            <div class="trait-icon">🦋</div>
+            <div class="trait-name">The Glow-Up</div>
+            <div class="trait-desc">Used to be pure "IDGAF". Now he cares — but about the right things.</div>
+          </div>
+          <div class="flip-back" style="padding:0.5rem 0;">
+            <div style="font-size:0.75rem; color:var(--gold); margin-bottom:0.5rem; letter-spacing:0.1em;">THEN → NOW:</div>
+            <div class="flip-back-item">Straight-faced → Intentional</div>
+            <div class="flip-back-item">Indifferent → Selective</div>
+            <div class="flip-back-item">Reactive → Thoughtful</div>
+            <div class="flip-back-item">Same vibe → Better version</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ambition -->
+      <div class="trait-card flip-card reveal reveal-delay-1">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="trait-level">BURNING</div>
+            <div class="trait-icon">🔥</div>
+            <div class="trait-name">Quiet Ambition</div>
+            <div class="trait-desc">Not loud about it. But the ones who know, know. He's building something.</div>
+          </div>
+          <div class="flip-back" style="padding:0.5rem 0;">
+            <div style="font-size:0.75rem; color:var(--gold); margin-bottom:0.5rem; letter-spacing:0.1em;">THE PLAN:</div>
+            <div class="flip-back-item">Crack the exam first</div>
+            <div class="flip-back-item">Build the expertise</div>
+            <div class="flip-back-item">Create something real</div>
+            <div class="flip-back-item">Let results speak</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wide thinking -->
+      <div class="trait-card flip-card reveal reveal-delay-2">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="trait-level">UNRESTRICTED</div>
+            <div class="trait-icon">🌍</div>
+            <div class="trait-name">No Ceiling</div>
+            <div class="trait-desc">His thinking is wide and not restricted to any limit. That's rare at 20.</div>
+          </div>
+          <div class="flip-back" style="padding:0.5rem 0;">
+            <div style="font-size:0.75rem; color:var(--gold); margin-bottom:0.5rem; letter-spacing:0.1em;">MANIFESTS AS:</div>
+            <div class="flip-back-item">Macro thinking naturally</div>
+            <div class="flip-back-item">Cross-domain connections</div>
+            <div class="flip-back-item">Big picture perspective</div>
+            <div class="flip-back-item">Refuses to think small</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mood section inside traits -->
+    <div class="mood-section" style="padding: 3rem 0 0;">
+      <div class="section-eyebrow reveal" style="justify-content:center;">Current Frequency</div>
+      <div class="mood-grid reveal" id="moodGrid">
+        <div class="mood-chip" style="background:rgba(232,116,12,0.12);color:#FAA85A;border-color:rgba(232,116,12,0.3);" data-msg="He's operating at full throttle. Stand back. 🔥" onclick="moodPick(this)">🔥 Locked in & Grinding</div>
+        <div class="mood-chip" style="background:rgba(201,147,58,0.12);color:var(--gold-light);border-color:var(--border);" data-msg="Spreadsheets, podcasts, and probably dal baati. Living best life. 📊" onclick="moodPick(this)">📊 Full Finance Mode</div>
+        <div class="mood-chip" style="background:rgba(76,175,80,0.12);color:#81C784;border-color:rgba(76,175,80,0.3);" data-msg="Escaped Pune, landed in Mumbai or Rajasthan. Mithais are being consumed. 🏡" onclick="moodPick(this)">🏡 Holiday Migration Mode</div>
+        <div class="mood-chip" style="background:rgba(107,26,26,0.2);color:#EF9393;border-color:rgba(107,26,26,0.4);" data-msg="He's processing something. Give him space. He'll figure it out. 💭" onclick="moodPick(this)">💭 Deep in Thought</div>
+        <div class="mood-chip" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);" data-msg="Exploring new territory. Classic Prince. Always up for something new. 🌱" onclick="moodPick(this)">🌱 Exploring Something New</div>
+        <div class="mood-chip" style="background:rgba(127,119,221,0.12);color:#AFA9EC;border-color:rgba(127,119,221,0.3);" data-msg="In pure sweet-eating, do-nothing energy. Earned it. Let him be. 🍬" onclick="moodPick(this)">🍬 Sweet Tooth Activated</div>
+      </div>
+      <div class="mood-response reveal" id="moodResponse">Somewhere between Pune deadlines and the next holiday escape. Classic Prince. 📍</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GLOW UP TIMELINE -->
+<section class="glowup-section" id="glowup">
+  <div class="glowup-inner">
+    <div class="section-eyebrow reveal">Chapter 07</div>
+    <h2 class="section-heading reveal">The <em>Glow Up</em> Timeline</h2>
+    <p class="reveal" style="color:var(--muted); line-height:1.8;">From straight-faced boy with IDGAF energy to someone building something real. Respect the arc.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Chapter One</div>
+        <div class="timeline-title">The Introduction Era</div>
+        <div class="timeline-body">A pretty straightforward boy. IDGAF energy. Not unfriendly — just not letting everyone in. First impressions: direct, unbothered, unfiltered. Some people found it off-putting. Those people didn't make the list.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Turn</div>
+        <div class="timeline-title">Finance Found Him (or He Found Finance)</div>
+        <div class="timeline-body">Something clicked. The interest in business, finance, and entrepreneurship wasn't just curiosity — it became identity. Podcasts replaced passive scrolling. Case studies replaced casual content. The direction was set.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Build Phase</div>
+        <div class="timeline-title">Selective. Intentional. Sharper.</div>
+        <div class="timeline-body">The friend circle got smaller and more meaningful. The goals got bigger and more specific. Rajasthan roots stayed, Mumbai ambitions grew. Less reaction, more intention. This is the era where he became the person people want advice from, not just company.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--gold-light); box-shadow:0 0 0 3px rgba(232,180,109,0.4);"></div>
+        <div class="timeline-year">Right Now — 2025</div>
+        <div class="timeline-title">20, Engineering in Pune, Preparing For Something Big</div>
+        <div class="timeline-body">I2IT, Pune. Engineering degree by day, finance brain 24/7. Exam mode activated. Every day is a deposit in the account he's building. The balance sheet of his life is looking very, very promising. Watch this space.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXAM / ALL THE BEST -->
+<section class="exam-section" id="exam">
+  <div class="exam-inner">
+    <div class="section-eyebrow reveal" style="color:#81C784;">Chapter 08</div>
+    <h2 class="section-heading reveal">The <em>Big Push</em></h2>
+
+    <div class="exam-card reveal">
+      <div class="exam-icon">📚</div>
+      <div class="exam-info">
+        <h3>Currently In: Exam Mode</h3>
+        <p>He's not just studying — he's investing in his future self. Every page, every problem, every late night session is a compounding return on himself. That's the finance-brain way of looking at it.</p>
+        <div class="exam-badge">
+          ✦ All The Very Best, Prince!
+        </div>
+      </div>
+    </div>
+
+    <div class="motivation-cards reveal">
+      <div class="mot-card">
+        <div class="mot-num">100%</div>
+        <div class="mot-label">His Commitment</div>
+      </div>
+      <div class="mot-card">
+        <div class="mot-num">0</div>
+        <div class="mot-label">Days Wasted</div>
+      </div>
+      <div class="mot-card">
+        <div class="mot-num">∞</div>
+        <div class="mot-label">Future Returns</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; background:rgba(76,175,80,0.05); border:1px solid rgba(76,175,80,0.15); border-radius:16px; padding:1.5rem; text-align:center;" class="reveal">
+      <p style="font-family:'DM Serif Display',serif; font-style:italic; font-size:1.1rem; color:rgba(245,237,216,0.6); line-height:1.8;">
+        "Prepare so well that when the opportunity finally knocks,<br>you're already standing at the door."
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTENT DIET -->
+<section class="content-section">
+  <div class="content-inner">
+    <div class="section-eyebrow reveal">Chapter 09</div>
+    <h2 class="section-heading reveal">What He <em>Consumes</em></h2>
+    <p class="reveal" style="color:var(--muted); line-height:1.8;">His algorithm is probably the most intentionally curated one on any platform.</p>
+
+    <div class="content-wheel">
+      <div class="cw-item reveal">
+        <div class="cw-icon">🎙️</div>
+        <div class="cw-text">
+          <div class="cw-title">Business Podcasts</div>
+          <div class="cw-sub">Daily dose. No exceptions. Skip the pop, keep the principles.</div>
+        </div>
+        <div class="cw-bar">
+          <div class="cw-pct">90%</div>
+          <div class="cw-bar-track"><div class="cw-bar-fill" data-w="90"></div></div>
+        </div>
+      </div>
+      <div class="cw-item reveal reveal-delay-1">
+        <div class="cw-icon">🦈</div>
+        <div class="cw-text">
+          <div class="cw-title">Shark Tank India</div>
+          <div class="cw-sub">Not entertainment. Field research. He's already judging the judges.</div>
+        </div>
+        <div class="cw-bar">
+          <div class="cw-pct">95%</div>
+          <div class="cw-bar-track"><div class="cw-bar-fill" data-w="95"></div></div>
+        </div>
+      </div>
+      <div class="cw-item reveal">
+        <div class="cw-icon">📖</div>
+        <div class="cw-text">
+          <div class="cw-title">Case Studies</div>
+          <div class="cw-sub">Real companies, real decisions, real lessons. His kind of binge.</div>
+        </div>
+        <div class="cw-bar">
+          <div class="cw-pct">85%</div>
+          <div class="cw-bar-track"><div class="cw-bar-fill" data-w="85"></div></div>
+        </div>
+      </div>
+      <div class="cw-item reveal reveal-delay-1">
+        <div class="cw-icon">💼</div>
+        <div class="cw-text">
+          <div class="cw-title">Finance & Deals</div>
+          <div class="cw-sub">Mergers, acquisitions, funding rounds. He tracks them like a hawk.</div>
+        </div>
+        <div class="cw-bar">
+          <div class="cw-pct">88%</div>
+          <div class="cw-bar-track"><div class="cw-bar-fill" data-w="88"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BIRTHDAY MESSAGE -->
+<section class="bday-section" id="birthday">
+  <div class="bday-confetti-area" id="confettiArea"></div>
+  <div class="bday-inner">
+    <div class="birthday-badge" style="margin:0 auto 2rem;">🎉 From Your Actual Friend</div>
+    <h2 class="bday-title">Happy <em>20th</em>,<br>Prince.</h2>
+    <p class="bday-message">
+      From the first time we met — straight-faced, unbothered, full IDGAF energy — to where you are now: focused, intentional, and quietly building something the world isn't ready for yet. <br><br>
+      You eat only pure veg, you think with no ceiling, you choose your people carefully, and you're grinding for a future that most people your age can't even imagine. <strong>That's not common. That's rare.</strong><br><br>
+      May your 20s be everything your case studies promised. May your dal baati always be hot, your mithais always be sweet, and your financial models always be correct.<br><br>
+      <strong>You're going to do something remarkable. I know it.</strong> 🧡
+    </p>
+    <button class="bday-btn" onclick="launchConfetti()">🎊 Celebrate!</button>
+  </div>
+</section>
+
+<footer>
+  Made with chai, code, and genuine affection ☕ — For <strong>Prince Ostwal</strong>, on his 20th birthday · 21 April 2025
+</footer>
+
+</div><!-- end main-content -->
+
+<script>
+// Cursor
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx+'px'; cur.style.top = my+'px'; });
+(function lerp() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(lerp);
+})();
+document.querySelectorAll('a,button,.finance-card,.cw-item,.criteria-row,.mood-chip,.trait-card,.bday-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width='20px'; cur.style.height='20px'; ring.style.width='50px'; ring.style.height='50px'; });
+  el.addEventListener('mouseleave', () => { cur.style.width='12px'; cur.style.height='12px'; ring.style.width='36px'; ring.style.height='36px'; });
+});
+
+// Loader
+setTimeout(() => {
+  document.getElementById('loader').classList.add('hide');
+}, 2400);
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in-view');
+      // animate bar fills
+      e.target.querySelectorAll('.cw-bar-fill, [data-w]').forEach(b => {
+        const w = b.getAttribute('data-w');
+        if (w) setTimeout(() => b.style.width = w + '%', 200);
+      });
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+// Love meter
+const loveMeterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => { document.getElementById('loveMeter').style.width = '72%'; }, 400);
+    }
+  });
+}, { threshold: 0.5 });
+const loveMeterEl = document.getElementById('loveMeter');
+if (loveMeterEl) loveMeterObserver.observe(loveMeterEl.closest('.love-card'));
+
+// Nav dots active
+const sections = ['hero','origin','finance','food','friends','glowup','exam','birthday'];
+const dots = document.querySelectorAll('.nav-dot');
+window.addEventListener('scroll', () => {
+  let current = 0;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (window.scrollY >= el.offsetTop - window.innerHeight/2) current = i;
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+});
+
+function scrollToId(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Mood
+function moodPick(el) {
+  document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const msg = el.getAttribute('data-msg');
+  const resp = document.getElementById('moodResponse');
+  resp.style.opacity = '0';
+  setTimeout(() => { resp.textContent = msg; resp.style.opacity = '1'; }, 200);
+}
+
+// Confetti
+const colors = ['#C9933A','#E8740C','#F5EDD8','#6B1A1A','#E8B86D','#FAF6EE','#FEBC2E'];
+function launchConfetti() {
+  const area = document.getElementById('confettiArea');
+  for (let i = 0; i < 80; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = '0';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.width = (Math.random() * 8 + 5) + 'px';
+      p.style.height = (Math.random() * 8 + 5) + 'px';
+      p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      p.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      p.style.animationDelay = Math.random() * 1 + 's';
+      area.appendChild(p);
+      setTimeout(() => p.remove(), 4000);
+    }, i * 30);
+  }
+}
+</script>
+</body>
+</html>
